@@ -66,9 +66,6 @@ class Movie(models.Model):
 
     # show the object by its title
 
-    def clean(self):
-        raise ValidationError('Not good')
-
 
 class MovieCrew(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
