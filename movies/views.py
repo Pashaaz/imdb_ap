@@ -6,10 +6,7 @@ from movies.models import Movie
 
 def movies_list(request):
     movies = Movie.objects.all()
-    if User.is_authenticated:
-        user = True
-    else:
-        user = False
+    user = User
     context = {
         'movies': movies,
         'User': user
@@ -21,7 +18,7 @@ def movie_detail(request, pk):
     movie = Movie.objects.get(id=pk)
     genre = movie.genres.all()
     crew = movie.crew.all()
-    user = User.is_authenticated
+    user = User
 
     context = {
         'movie': movie,
