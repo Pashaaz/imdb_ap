@@ -24,18 +24,18 @@
             <div class="row ipad-width2">
                 <div class="col-md-12" style="padding-left: 25%; padding-right: 25%">
                     <form action="{% url 'movie_add' %}" method="post" class="">
-
                         {% for field in form %}
                             <p style="color: white">{{ field.label_tag }}</p><br>
                             {{ field }}<br>
                         {% endfor %}
-                    <div class="text-center">
-                    <button class="item item-1 yellowbtn" type="submit" style="background-color: #ffc000; border: none">SUBMIT</button>
+                        <div class="text-center">
+                            <button class="item item-1 yellowbtn" type="submit"
+                                    style="background-color: #ffc000; border: none">SUBMIT
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
