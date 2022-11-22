@@ -29,7 +29,7 @@
                     {% for movie in movies %}
                         <div class="movie-item-style-2">
 
-                            {% if movie.avatar.url %}
+                            {% if movie.avatar %}
                                 <img src="{{ movie.avatar.url }}" alt="Movie Image" style="max-width: 20%">
                             {% else %}
                                 <img src="" alt="Movie Image">
