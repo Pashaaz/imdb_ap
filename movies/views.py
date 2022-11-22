@@ -47,7 +47,7 @@ def movie_add(request, form=None):
 
             return redirect('movies_list')
 
-    form = MovieAddForm(request.POST)
+    form = MovieAddForm(request.POST, request.FILES)
     request.method = 'GET'
     # return movie_add(request, form)
     return render(request, 'movies/movie_add.html', context={'form': form})
