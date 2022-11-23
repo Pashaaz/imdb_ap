@@ -24,11 +24,11 @@ def movie_detail(request, pk):
     actors = []
     for crew in movie_crew:
         if crew.role.title == 'Director':
-            directors.append(str(crew.crew.first_name)+str(crew.crew.last_name))
+            directors.append(str(crew.crew.first_name) + str(crew.crew.last_name))
         elif crew.role.title == 'Writer':
-            writers.append(str(crew.crew.first_name)+str(crew.crew.last_name))
+            writers.append(str(crew.crew.first_name) + str(crew.crew.last_name))
         elif crew.role.title == 'Actor':
-            actors.append(str(crew.crew.first_name)+str(crew.crew.last_name))
+            actors.append(str(crew.crew.first_name) + str(crew.crew.last_name))
 
     context = {'movie': movie,
                'Directors': directors,
