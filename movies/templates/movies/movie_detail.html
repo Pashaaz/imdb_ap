@@ -5,8 +5,6 @@
 
 {% block Content %}
     <!--Commenting form-->
-
-
     <div class="hero mv-single-hero">
         <div class="container">
             <div class="row">
@@ -158,17 +156,47 @@
                                             <h2>{{ movie.title }}</h2>
                                             <!-- //== -->
                                             <div class="title-hd-sm">
-                                                <h4>. . .</h4>
+                                                <h4>Directed by</h4>
                                             </div>
-                                            <div class="mvcast-item">
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <h4>JW</h4>
-                                                        <a href="#">Joss Whedon</a>
+                                            {% for Director in Directors %}
+                                                <div class="mvcast-item">
+                                                    <div class="cast-it">
+                                                        <div class="cast-left">
+                                                            <h4></h4>
+                                                            <p>{{ Director }}</p>
+                                                        </div>
+                                                        <p></p>
                                                     </div>
-                                                    <p>... Director</p>
                                                 </div>
+                                            {% endfor %}
+                                            <div class="title-hd-sm">
+                                                <h4>Writer(s)</h4>
                                             </div>
+                                            {% for writer in Writers %}
+                                                <div class="mvcast-item">
+                                                    <div class="cast-it">
+                                                        <div class="cast-left">
+                                                            <h4></h4>
+                                                            <p>{{ writer }}</p>
+                                                        </div>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            <div class="title-hd-sm">
+                                                <h4>Actors</h4>
+                                            </div>
+                                            {% for actor in Actors %}
+                                                <div class="mvcast-item">
+                                                    <div class="cast-it">
+                                                        <div class="cast-left">
+                                                            <h4></h4>
+                                                            <p>{{ actor }}</p>
+                                                        </div>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>

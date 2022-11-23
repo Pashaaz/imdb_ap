@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from movies.forms import MovieAddForm
-from movies.models import Movie
+from movies.models import Movie, MovieCrew
 
 
 def movies_list(request):
@@ -16,17 +16,25 @@ def movies_list(request):
 
 
 def movie_detail(request, pk):
-    movie = Movie.objects.get(id=pk)
-    genre = movie.genres.all()
-    crew = movie.crew.all()
-    user = User
+    movie = get_object_or_404(Movie, pk=pk)
+    genres = movie.genres
+    movie_crew = MovieCrew.objects.filter(movie=movie).select_related('crew', 'role')
+    directors = []
+    writers = []
+    actors = []
+    for crew in movie_crew:
+        if crew.role.title == 'Director':
+            directors.append(str(crew.crew.first_name)+str(crew.crew.last_name))
+        elif crew.role.title == 'Writer':
+            writers.append(str(crew.crew.first_name)+str(crew.crew.last_name))
+        elif crew.role.title == 'Actor':
+            actors.append(str(crew.crew.first_name)+str(crew.crew.last_name))
 
-    context = {
-        'movie': movie,
-        'genre': genre,
-        'crew': crew,
-        'User': user
-    }
+    context = {'movie': movie,
+               'Directors': directors,
+               'Writers': writers,
+               'Actors': actors,
+               'Genres': genres}
 
     return render(request, 'movies/movie_detail.html', context=context)
 
