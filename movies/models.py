@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Avg
 
 from comments.models import AbstractComment
-from config import settings
+from imdb_ap import settings
 from django.core.validators import MaxValueValidator, MinValueValidator  # imported so can be used in rating validation
 
 
