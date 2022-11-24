@@ -97,10 +97,6 @@ class MovieCrew(models.Model):
         # used to make two or more model fields to be true and unique
         # Meta classes are used to add or change a behavior in a class
 
-    # below function is used to capitalize first letter of each movie's name
-    def save(self, *args, **kwargs):
-        self.movie = self.movie.caplitalize()
-
 
 # the below class is used for commenting on movies
 class MovieComment(AbstractComment):
