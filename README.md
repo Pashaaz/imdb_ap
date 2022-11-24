@@ -1,2 +1,2 @@
 # imdb_ap
-IMDb sample Project - cooperated with @pashaaz
+IMDb sample Project - collaborated with @pashaaz
