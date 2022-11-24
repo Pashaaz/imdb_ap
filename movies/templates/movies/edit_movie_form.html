@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}IMDb - Add Movie{% endblock %}
+
+{% block Content %}
+    <div class="hero common-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="hero-ct">
+                        <h1>Add Movie</h1>
+                        <ul class="breadcrumb">
+                            <li class="active"><a href="{% url 'movies_list' %}">Home</a></li>
+                            <li><span class="ion-ios-arrow-right">Movie Add</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-single">
+        <div class="container">
+            <div class="row ipad-width2">
+                <div class="col-md-12" style="padding-left: 25%; padding-right: 25%">
+                    <form action="{% url 'edit_movie' movie.id %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form }}
+                        <div class="text-right">
+                            <br>
+                            <button type="submit" class="item item-1 yellowbtn" style="border: None;">Update</button>
+                        </div>
+                    </form>
+                    <br>
+                    <form action="{% url 'delete_movie' movie.id %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="text-right">
+                            <button type="submit" class="item item-1 redbtn" style="border: None;">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
