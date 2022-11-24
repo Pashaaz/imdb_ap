@@ -26,9 +26,9 @@
                         <img src="{{ movie.avatar.url }}" alt="">
                         <div class="movie-btn">
                             <div class="btn-transform transform-vertical red">
-                                <div><a href="#" class="item item-1 yellowbtn">Edit Movie</a>
+                                <div><a href="{% url 'edit_movie' movie.id %}" class="item item-1 yellowbtn">Edit Movie</a>
                                 </div>
-                                <div><a href="" class="item item-2 yellowbtn fancybox-media hvr-grow">. . .</a></div>
+                                <div><a href="{% url 'edit_movie' movie.id %}" class="item item-2 yellowbtn fancybox-media hvr-grow">. . .</a></div>
                             </div>
                             <div class="btn-transform transform-vertical">
                                 <div><a href="{% url 'movie_add' %}" class="item item-1 redbtn">Add Another Movie</a>

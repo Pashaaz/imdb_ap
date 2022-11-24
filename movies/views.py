@@ -6,12 +6,12 @@ from movies.models import Movie, MovieCrew
 
 
 def movies_list(request):
-    movies = Movie.objects.all()
-    user = User
+    movies = Movie.objects.all().filter(is_valid=True)
+
     context = {
         'movies': movies,
-        'User': user
     }
+
     return render(request, 'movies/movies_list.html', context=context)
 
 
@@ -59,3 +59,38 @@ def movie_add(request, form=None):
     request.method = 'GET'
     # return movie_add(request, form)
     return render(request, 'movies/movie_add.html', context={'form': form})
+
+
+def edit_movie(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    if request.method == 'GET':
+        form = MovieAddForm(instance=movie)
+        context = {
+            'form': form,
+            'movie': movie
+        }
+        return render(request, 'movies/edit_movie_form.html', context=context)
+    elif request.method == 'POST':
+        form = MovieAddForm(request.POST, request.FILES, instance=movie)
+        if form.is_valid():
+            form.save()
+            context = {
+                'form': form,
+                'movie': movie
+            }
+            return redirect('movie_detail', pk=pk)
+        else:
+            form = MovieAddForm(instance=movie)
+            context = {
+                'form': form,
+                'movie': movie
+            }
+            return render(request, 'movies/edit_movie_form.html', context=context)
+
+
+def delete_movie(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    movie.is_valid = False
+    movie.save()
+
+    return redirect('movies_list')
