@@ -28,7 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'movies.apps.MoviesConfig',
+    'movies',
+    'users',
+    'comments'
 ]
 
 MIDDLEWARE = [
@@ -116,3 +118,54 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
+
+# defining main authentication backend:
+AUTHENTICATION_BACKEND = [
+    'django.contrib.auth.backends.ModelBackend',
+    'users.authentication_backends.MyBackend',
+]
+
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}] [{asctime}] [{module}.{lineno}] [{process:d}] [{thread:d}] {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '[{levelname}] [{message}]',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'django': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'formatter': 'verbose'
+        },
+        'movies': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/movies.log'),
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['django'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'movies': {
+            'handlers': ['movies'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
