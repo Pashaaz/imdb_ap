@@ -109,7 +109,7 @@
                                                     <h3>Reviews of</h3>
                                                     <h2>{{ movie.title }}</h2>
                                                 </div>
-                                                <a href="#" class="redbtn">Write Review</a>
+                                                <a href="{% url 'movie_comment' movie.id %}" class="redbtn">Write Review</a>
                                             </div>
                                             <div class="topbar-filter">
                                                 <p>Found <span>56 reviews</span> in total</p>

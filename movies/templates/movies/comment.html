@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}IMDb - Comment{% endblock %}
+
+{% block Content %}
+    <div class="hero common-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="hero-ct">
+                        <h1>Write Down Your Review</h1>
+                        <ul class="breadcrumb">
+                            <li class="active"><a href="{% url 'movies_list' %}">Home</a></li>
+                            <li><span class="ion-ios-arrow-right">Comment</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-single">
+        <div class="container">
+            <div class="row ipad-width2">
+                <div class="col-md-12" style="padding-left: 25%; padding-right: 25%;">
+                    <form action="{% url 'movie_comment' pk %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-row" style="margin-bottom: 10%; color: white">
+                            <p>. You should be logged in<br>
+                            </p>
+                        {{ form }}
+                            </div>
+{#                        {% for field in form %}#}
+{#                            <p style="color: white">{{ field.label_tag }}</p><br>#}
+{#                            {{ field }}<br>#}
+{#                        {% endfor %}#}
+                        <div class="text-center">
+                            <button class="item item-1 yellowbtn" type="submit"
+                                    style="background-color: #ffc000; border: none">SUBMIT
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
