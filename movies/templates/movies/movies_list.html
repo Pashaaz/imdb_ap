@@ -39,13 +39,13 @@
                                 <p class="rate"><i class="ion-android-star"></i>{#<span>8.1</span> /10</p>#}
                                 <p class="describe">{{ movie.description | capfirst }}</p>
                                 {#                            <p class="run-time"> Run Time: 2h21’ . <span>MMPA: PG-13 </span> .#}
-                                {#                                <span>Release: 1 May 2015</span></p>#}
-{#                                <p>Director: <a href="#">###</a></p>#}
+                                <p><span>{{ movie.release_date }}</span></p>
+                                {#                                <p>Director: <a href="#">###</a></p>#}
                                 {#                            <p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a> <a href="#"> Chris#}
                                 {#                                Hemsworth</a></p>#}
                             </div>
-
-                        </div>{% endfor %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
