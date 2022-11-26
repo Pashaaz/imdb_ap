@@ -12,7 +12,9 @@
 </head>
 <body style="background-color: black">
 <div class="text-center mb-5 mt-3">
-    <img src="{% static 'images/IMDB_Logo.svg' %}" alt="IMDb" class="avatar" style="max-width: 5%">
+    <a href="{% url 'movies_list' %}">
+        <img src="{% static 'images/IMDB_Logo.svg' %}" alt="IMDb" class="avatar" style="max-width: 5%">
+    </a>
 </div>
 <div class="main container content">
     {% block content %}

@@ -7,16 +7,17 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 text-center card" style="background-color: gray">
             <form method="post" action={% url 'user_signup' %}>
-             {% csrf_token %}
+                {% csrf_token %}
                 <div>{{ form.non_field_errors }}</div>
                 {% for field in form %}
                     <div>{{ field.errors }}</div>
                     {{ field.label_tag }} <br>
-                    {{ field.as_widget }}<br>
+                    {{ field.as_widget }} <br>
                 {% endfor %}
                 <br>
-                <button type="submit" class="btn btn-warning">Submit</button>
-                <br><br>
+                <button type="submit" class="btn btn-warning">Sign Up</button>
+                <br>
+                <br>
             </form>
         </div>
         <div class="col-md-3"></div>
