@@ -103,7 +103,7 @@ class MovieCrew(models.Model):
 
 # the below class is used for commenting on movies
 class MovieComment(AbstractComment):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='movie_comments')
 
 
 # the below class is used for commenting on crew members

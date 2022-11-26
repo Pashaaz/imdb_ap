@@ -18,7 +18,7 @@ class AbstractComment(models.Model):
     validated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True,
                                      related_name='validated_%(class)s')
     # 'validated_by' shows who accepted the comment to be published
-    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE)
+    # parent_comment = models.ForeignKey('self', on_delete=models.CASCADE)
     status = models.PositiveSmallIntegerField(choices=COMMENT_STATUS_CHOICES, default=CREATED)
 
     class Meta:
