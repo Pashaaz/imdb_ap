@@ -12,4 +12,4 @@ class MovieAddForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = MovieComment
-        fields = ['text']
+        fields = ['title', 'text']

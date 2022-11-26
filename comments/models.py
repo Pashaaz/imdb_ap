@@ -13,6 +13,7 @@ class AbstractComment(models.Model):
         (CREATED, 'Created'), (APPROVED, 'Approved'), (REJECTED, 'Rejected'), (DELETED, 'Deleted')
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='%(class)s')
+    title = models.CharField(max_length=100)
     text = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
     validated_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True,
