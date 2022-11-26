@@ -18,6 +18,7 @@ def movies_list(request):
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
+    comments = movie.movie_comments.all().filter(status=20)
     genres = movie.genres
     movie_crew = MovieCrew.objects.filter(movie=movie).select_related('crew', 'role')
     directors = []
@@ -36,12 +37,13 @@ def movie_detail(request, pk):
                'Directors': directors,
                'Writers': writers,
                'Actors': actors,
-               'Genres': genres}
+               'Genres': genres,
+               'Comments': comments
+               }
 
     return render(request, 'movies/movie_detail.html', context=context)
 
 
-# @login_required(redirect('user_login'))
 def movie_add(request, form=None):
     if request.user.is_authenticated:
         user = User
@@ -67,7 +69,6 @@ def movie_add(request, form=None):
         return redirect('user_login')
 
 
-# @login_required(redirect('user_login'))
 def edit_movie(request, pk):
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=pk)
@@ -98,7 +99,6 @@ def edit_movie(request, pk):
         return redirect('user_login')
 
 
-# @login_required(redirect('user_login'))
 def delete_movie(request, pk):
     if request.user.is_authenticated:
         movie = get_object_or_404(Movie, pk=pk)
@@ -110,7 +110,6 @@ def delete_movie(request, pk):
         return redirect('user_login')
 
 
-# @login_required(redirect('user_login'))
 def movie_comment(request, pk=None, comment_form=None):
     if request.user.is_authenticated:
         if request.method == 'GET':
