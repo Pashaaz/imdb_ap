@@ -128,16 +128,16 @@ def movie_comment(request, pk=None, comment_form=None):
             comment_form = CommentForm(request.POST)
             if request.user.is_authenticated:
                 if comment_form.is_valid():
-                    comment_form.save(commit=False)
-                    comment_form.user = request.user
-                    comment_form.movie = pk
-                    comment_form.save()
+                    comment = comment_form.save(commit=False)
+                    comment.user = request.user
+                    comment.movie = comment_form.movie = Movie.objects.get(pk=pk)
+                    comment.save()
                 else:
                     redirect('movie_comment', comment_form)
 
             else:
                 return redirect('movie_comment', comment_form)
 
-        return redirect('movie_detail')
+        return redirect('movie_detail', pk)
     elif request.user.is_anonymous:
         return redirect('user_login')
