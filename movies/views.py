@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from movies.forms import MovieAddForm, CommentForm
 from movies.models import Movie, MovieCrew
@@ -40,87 +41,103 @@ def movie_detail(request, pk):
     return render(request, 'movies/movie_detail.html', context=context)
 
 
+# @login_required(redirect('user_login'))
 def movie_add(request, form=None):
-    user = User
-    if request.method == 'GET':
-        if not form:
-            form = MovieAddForm()
+    if request.user.is_authenticated:
+        user = User
+        if request.method == 'GET':
+            if not form:
+                form = MovieAddForm()
 
-        return render(request, 'movies/movie_add.html', context={'form': form, 'User': user})
+            return render(request, 'movies/movie_add.html', context={'form': form, 'User': user})
 
-    elif request.method == 'POST':
+        elif request.method == 'POST':
+            form = MovieAddForm(request.POST, request.FILES)
+
+            if form.is_valid():
+                form.save()
+
+                return redirect('movies_list')
+
         form = MovieAddForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            form.save()
-
-            return redirect('movies_list')
-
-    form = MovieAddForm(request.POST, request.FILES)
-    request.method = 'GET'
-    # return movie_add(request, form)
-    return render(request, 'movies/movie_add.html', context={'form': form})
+        request.method = 'GET'
+        # return movie_add(request, form)
+        return render(request, 'movies/movie_add.html', context={'form': form})
+    elif request.user.is_anonymous:
+        return redirect('user_login')
 
 
+# @login_required(redirect('user_login'))
 def edit_movie(request, pk):
-    movie = get_object_or_404(Movie, pk=pk)
-    if request.method == 'GET':
-        form = MovieAddForm(instance=movie)
-        context = {
-            'form': form,
-            'movie': movie
-        }
-        return render(request, 'movies/edit_movie_form.html', context=context)
-    elif request.method == 'POST':
-        form = MovieAddForm(request.POST, request.FILES, instance=movie)
-        if form.is_valid():
-            form.save()
-            context = {
-                'form': form,
-                'movie': movie
-            }
-            return redirect('movie_detail', pk=pk)
-        else:
+    if request.user.is_authenticated:
+        movie = get_object_or_404(Movie, pk=pk)
+        if request.method == 'GET':
             form = MovieAddForm(instance=movie)
             context = {
                 'form': form,
                 'movie': movie
             }
             return render(request, 'movies/edit_movie_form.html', context=context)
-
-
-def delete_movie(request, pk):
-    movie = get_object_or_404(Movie, pk=pk)
-    movie.is_valid = False
-    movie.save()
-
-    return redirect('movies_list')
-
-
-def movie_comment(request, pk=None, comment_form=None):
-    if request.method == 'GET':
-        if not comment_form:
-            comment_form = CommentForm()
-
-        context_get = {
-            'pk': pk,
-            'form': comment_form
-        }
-
-        return render(request, 'movies/comment.html', context=context_get)
-
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
-        if request.user.is_authenticated:
-            if comment_form.is_valid():
-                comment_form.save(commit=False)
-                comment_form.user = request.user
-                comment_form.movie = pk
-                comment_form.save()
+        elif request.method == 'POST':
+            form = MovieAddForm(request.POST, request.FILES, instance=movie)
+            if form.is_valid():
+                form.save()
+                context = {
+                    'form': form,
+                    'movie': movie
+                }
+                return redirect('movie_detail', pk=pk)
             else:
-                redirect('movie_comment', comment_form)
+                form = MovieAddForm(instance=movie)
+                context = {
+                    'form': form,
+                    'movie': movie
+                }
+                return render(request, 'movies/edit_movie_form.html', context=context)
+    elif request.user.is_anonymous:
+        return redirect('user_login')
 
-        else:
-            return redirect('movie_comment', comment_form)
 
-    return redirect('movie_detail')
+# @login_required(redirect('user_login'))
+def delete_movie(request, pk):
+    if request.user.is_authenticated:
+        movie = get_object_or_404(Movie, pk=pk)
+        movie.is_valid = False
+        movie.save()
+
+        return redirect('movies_list')
+    elif request.user.is_anonymous:
+        return redirect('user_login')
+
+
+# @login_required(redirect('user_login'))
+def movie_comment(request, pk=None, comment_form=None):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            if not comment_form:
+                comment_form = CommentForm()
+
+            context_get = {
+                'pk': pk,
+                'form': comment_form
+            }
+
+            return render(request, 'movies/comment.html', context=context_get)
+
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if request.user.is_authenticated:
+                if comment_form.is_valid():
+                    comment_form.save(commit=False)
+                    comment_form.user = request.user
+                    comment_form.movie = pk
+                    comment_form.save()
+                else:
+                    redirect('movie_comment', comment_form)
+
+            else:
+                return redirect('movie_comment', comment_form)
+
+        return redirect('movie_detail')
+    elif request.user.is_anonymous:
+        return redirect('user_login')
