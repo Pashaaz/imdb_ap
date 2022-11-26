@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 # from django.core.validators import RegexValidator
 
@@ -37,13 +38,10 @@ class UserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
-
     def create_user(self, email, password, **extra_fields):
-        """
-        Create and save a User with the given email and password.
-        """
+        # Create and save user
         if not email:
-            raise ValueError('The Email must be set')
+            raise ValueError(_('Email Required!'))
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -59,13 +57,15 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_active', True)
 
         if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
+            raise ValueError(_('Superuser staff must be True'))
+        if extra_fields.get(_('is_superuser')) is not True:
+            raise ValueError(_('Superuser superuser must be True'))
         return self.create_user(email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):  # PermissionsMixin defines superusers, groups etc.
+    first_name = models.CharField(max_length=150, blank=True, verbose_name="first name")
+    last_name = models.CharField(max_length=150, blank=True, verbose_name="last name")
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
