@@ -28,9 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'movies',
-    'users',
-    'comments'
+    'movies.apps.MoviesConfig',
+    'users.apps.UsersConfig',
+    'comments.apps.CommentsConfig'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +120,9 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = 'movies_list'
+LOGOUT_REDIRECT_URL = 'movies_list'
 
 # defining main authentication backend:
 AUTHENTICATION_BACKEND = [
