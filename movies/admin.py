@@ -42,9 +42,14 @@ class MovieAdmin(admin.ModelAdmin):
     exclude = ('genres',)
 
 
+class MovieCommentAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_time', 'user',)
+    search_fields = ('created_time', 'user',)
+
+
 # name of all model classes that we want to have a table of in our admin panel
 admin.site.register(Role, RoleAdmin)
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Crew, CrewAdmin)
 admin.site.register(Movie, MovieAdmin)
-admin.site.register(MovieComment)
+admin.site.register(MovieComment, MovieCommentAdmin)
