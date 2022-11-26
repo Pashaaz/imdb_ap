@@ -45,7 +45,7 @@ def movie_detail(request, pk):
 
 
 def movie_add(request, form=None):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_staff:
         user = User
         if request.method == 'GET':
             if not form:
@@ -70,7 +70,7 @@ def movie_add(request, form=None):
 
 
 def edit_movie(request, pk):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_staff:
         movie = get_object_or_404(Movie, pk=pk)
         if request.method == 'GET':
             form = MovieAddForm(instance=movie)
@@ -100,7 +100,7 @@ def edit_movie(request, pk):
 
 
 def delete_movie(request, pk):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.is_staff:
         movie = get_object_or_404(Movie, pk=pk)
         movie.is_valid = False
         movie.save()
