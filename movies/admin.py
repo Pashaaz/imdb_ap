@@ -5,17 +5,17 @@ from movies.models import *
 # these classed are created to customize each model in our admin panel
 # when an object is created in admin panel, each of these attributes are shown for each object based on their category
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('title',)
     search_fields = ('title',)
 
 
 class GenreAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('title',)
     search_fields = ('title',)
 
 
 class CrewAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'gender', 'is_valid')
+    list_display = ('first_name', 'last_name', 'gender', 'is_valid')
     search_fields = ('first_name', 'last_name')
     list_filter = ('is_valid',)
 
@@ -35,7 +35,7 @@ class GenreInlineAdmin(admin.StackedInline):
 
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'release_date', 'is_valid')
+    list_display = ('title', 'release_date', 'is_valid')
     search_fields = ('title',)
     list_filter = ('is_valid',)
     inlines = (MovieCrewInline, GenreInlineAdmin)
@@ -43,8 +43,8 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 class MovieCommentAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_time', 'user',)
-    search_fields = ('created_time', 'user',)
+    list_display = ('title', 'created_time', 'user', 'movie',)
+    search_fields = ('created_time', 'user', 'movie',)
 
 
 # name of all model classes that we want to have a table of in our admin panel
