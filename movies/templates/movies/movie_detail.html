@@ -25,21 +25,24 @@
                     <div class="movie-img sticky-sb">
                         <img src="{{ movie.avatar.url }}" alt="">
                         {% if request.user.is_staff %}
-                        <div class="movie-btn">
-                            <div class="btn-transform transform-vertical red">
-                                <div><a href="{% url 'edit_movie' movie.id %}" class="item item-1 yellowbtn">Edit Movie</a>
+                            <div class="movie-btn">
+                                <div class="btn-transform transform-vertical red">
+                                    <div><a href="{% url 'edit_movie' movie.id %}" class="item item-1 yellowbtn">Edit
+                                        Movie</a>
+                                    </div>
+                                    <div><a href="{% url 'edit_movie' movie.id %}"
+                                            class="item item-2 yellowbtn fancybox-media hvr-grow">. . .</a></div>
                                 </div>
-                                <div><a href="{% url 'edit_movie' movie.id %}" class="item item-2 yellowbtn fancybox-media hvr-grow">. . .</a></div>
-                            </div>
-                            <div class="btn-transform transform-vertical">
-                                <div><a href="{% url 'movie_add' %}" class="item item-1 redbtn">Add Another Movie</a>
-                                </div>
-                                <div><a href="{% url 'movie_add' %}"
-                                        class="item item-2 redbtn fancybox-media hvr-grow">. . .</a>
-                                </div>
+                                <div class="btn-transform transform-vertical">
+                                    <div><a href="{% url 'movie_add' %}" class="item item-1 redbtn">Add Another
+                                        Movie</a>
+                                    </div>
+                                    <div><a href="{% url 'movie_add' %}"
+                                            class="item item-2 redbtn fancybox-media hvr-grow">. . .</a>
+                                    </div>
 
+                                </div>
                             </div>
-                        </div>
                         {% endif %}
                     </div>
                 </div>
@@ -55,18 +58,31 @@
                                     <span class="rv">{{ Comments.count }} Reviews</span>
                                 </p>
                             </div>
-                            {#                                                        <div class="rate-star">#}
-                            {#                                                            <p>Rate This Movie: </p>#}
-                            {#                                                            <i class="ion-ios-star"></i>#}
-                            {#                                                            <i class="ion-ios-star"></i>#}
-                            {#                                                            <i class="ion-ios-star"></i>#}
-                            {#                                                            <i class="ion-ios-star"></i>#}
-                            {#                                                            <i class="ion-ios-star"></i>#}
-                            {#                                                            <i class="ion-ios-star"></i>#}
-                            {#                                                            <i class="ion-ios-star"></i>#}
-                            {#                                                            <i class="ion-ios-star"></i>#}
-                            {#                                                            <i class="ion-ios-star-outline"></i>#}
-                            {#                                                        </div>#}
+                            <p style="margin-right: 2%; margin-left: 10%">Rate This Movie: </p>
+                            <form action="" method="post">
+                                <div class="star-rating">
+                                    <input type="radio" id="10-stars" name="rating" value="10"/>
+                                    <label for="10-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="9-stars" name="rating" value="9"/>
+                                    <label for="9-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="8-stars" name="rating" value="8"/>
+                                    <label for="8-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="7-stars" name="rating" value="7"/>
+                                    <label for="7-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="6-star" name="rating" value="6"/>
+                                    <label for="6-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="5-stars" name="rating" value="5"/>
+                                    <label for="5-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="4-stars" name="rating" value="4"/>
+                                    <label for="4-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="3-stars" name="rating" value="3"/>
+                                    <label for="3-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="2-stars" name="rating" value="2"/>
+                                    <label for="2-stars" class="star">&#9733;</label>
+                                    <input type="radio" id="1-star" name="rating" value="1"/>
+                                    <label for="1-star" class="star">&#9733;</label>
+                                </div>
+                            </form>
                         </div>
                         <div class="movie-tabs">
                             <div class="tabs">
@@ -87,7 +103,8 @@
                                                 <div class="mv-user-review-item">
                                                     <h3>{{ Comments.last.title }}</h3>
                                                     <p class="time">
-                                                        {{ Comments.last.created_time }} by <a href="#"> {{ Comments.last.user }}</a>
+                                                        {{ Comments.last.created_time }} by <a
+                                                            href="#"> {{ Comments.last.user }}</a>
                                                     </p>
                                                     <p>{{ Comments.last.text }}</p>
                                                 </div>
@@ -101,36 +118,38 @@
                                                     <h3>Reviews of</h3>
                                                     <h2>{{ movie.title }}</h2>
                                                 </div>
-                                                <a href="{% url 'movie_comment' movie.id %}" class="redbtn">Write Review</a>
+                                                <a href="{% url 'movie_comment' movie.id %}" class="redbtn">Write
+                                                    Review</a>
                                             </div>
                                             <div class="topbar-filter">
                                                 <p>Found <span>{{ Comments.count }} reviews</span> in total</p>
                                             </div>
                                             {% for comment in Comments %}
-                                            <div class="mv-user-review-item">
-                                                <div class="user-infor">
-{#                                                    <img src="{% static 'images/uploads/userava1.jpg' %}" alt="">#}
-                                                    <div>
-                                                        <h3>{{ comment.title }}</h3>
-                                                        <div class="no-star">
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star"></i>
-                                                            <i class="ion-android-star last"></i>
+                                                <div class="mv-user-review-item">
+                                                    <div class="user-infor">
+                                                        {#                                                    <img src="{% static 'images/uploads/userava1.jpg' %}" alt="">#}
+                                                        <div>
+                                                            <h3>{{ comment.title }}</h3>
+                                                            <div class="no-star">
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star"></i>
+                                                                <i class="ion-android-star last"></i>
+                                                            </div>
+                                                            <p class="time">
+                                                                {{ comment.created_time }} by <a
+                                                                    href="#"> {{ comment.user }}</a>
+                                                            </p>
                                                         </div>
-                                                        <p class="time">
-                                                            {{ comment.created_time }} by <a href="#"> {{ comment.user }}</a>
-                                                        </p>
                                                     </div>
+                                                    <p>{{ comment.text }}</p>
                                                 </div>
-                                                <p>{{ comment.text }}</p>
-                                            </div>
                                             {% endfor %}
                                         </div>
                                     </div>
