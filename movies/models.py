@@ -127,3 +127,20 @@ class MovieRating(models.Model):
 
         # other method is using constraints
         constraints = [models.UniqueConstraint(fields=('user', 'movie'), name='unique_user_movie')]
+
+
+class AbstractRate(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='rate_user')
+    rate = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    created_time = models.DateTimeField(auto_now_add=True)
+    modified_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class MovieRate(AbstractRate):
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='movie_rate')
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=('user', 'movie'), name='unique_user_movie_rate')]
