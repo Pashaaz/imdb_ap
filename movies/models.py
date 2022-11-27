@@ -83,9 +83,9 @@ class Movie(models.Model):
 
     # below property and function is used to calculate and display average rating for each movie
     @property
-    def average_rating(self):
-        average_rate = self.ratings.all().aggregate(avg=Avg('rate'))
-        return average_rate.get('avg') or 1  # used "or 1" so if no rate was set, it won't output None
+    def average_rate(self):
+        avg_rate = self.movie_rate.all().aggregate(avg=Avg('rate'))
+        return avg_rate.get('avg') or 1  # used "or 1" so if no rate was set, it won't output None
 
 
 class MovieCrew(models.Model):
