@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 
-from movies.views import movies_list, movie_detail, movie_add, edit_movie, delete_movie, movie_comment
+from movies.views import *
 
 urlpatterns = [
     path('', movies_list, name='movies_list'),
@@ -10,7 +10,8 @@ urlpatterns = [
     path('movies/add', movie_add, name='movie_add'),
     path('edit_movie/<int:pk>/', edit_movie, name="edit_movie"),
     path('delete_movie/<int:pk>/', delete_movie, name="delete_movie"),
-    path('movies/<int:pk>/comment', movie_comment, name='movie_comment')
+    path('movies/<int:pk>/comment', movie_comment, name='movie_comment'),
+    path('<int:pk>/rate', movie_rate, name='movie_rate')
 ]
 
 if settings.DEBUG:

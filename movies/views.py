@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from movies.forms import MovieAddForm, CommentForm
-from movies.models import Movie, MovieCrew
+from movies.models import Movie, MovieCrew, MovieRate
 
 
 def movies_list(request):
@@ -140,3 +140,14 @@ def movie_comment(request, pk=None, comment_form=None):
         return redirect('movie_detail', pk)
     elif request.user.is_anonymous:
         return redirect('user_login')
+
+
+def movie_rate(request, pk):
+    movie = get_object_or_404(Movie, pk=pk, is_valid=True)
+
+    MovieRate.objects.update_or_create(
+        movie=movie,
+        user=request.user,
+        defaults={'rate': int(request.POST.get('rating'))})
+
+    return redirect('movie_detail', pk)
