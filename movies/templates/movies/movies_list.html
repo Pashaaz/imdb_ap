@@ -36,7 +36,7 @@
                             {% endif %}
                             <div class="mv-item-infor">
                                 <h6><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></h6>
-                                <p class="rate"><i class="ion-android-star"></i>{#<span>8.1</span> /10</p>#}
+                                <p class="rate"><i class="ion-android-star"></i><span>{{ movie.average_rate }}</span> /10</p>
                                 <p class="describe">{{ movie.description | capfirst }}</p>
                                 {#                            <p class="run-time"> Run Time: 2h21’ . <span>MMPA: PG-13 </span> .#}
                                 <p><span>{{ movie.release_date }}</span></p>
