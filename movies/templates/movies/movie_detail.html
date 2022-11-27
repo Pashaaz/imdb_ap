@@ -54,13 +54,15 @@
                             <div class="rate">
                                 <i class="ion-android-star"></i>
                                 <!-- TODO -->
-                                <p><span>8.1</span> /10<br>
+                                <p><span>{{ movie.average_rate }}</span> /10<br>
                                     <span class="rv">{{ Comments.count }} Reviews</span>
                                 </p>
                             </div>
                             <p style="margin-right: 2%; margin-left: 10%">Rate This Movie: </p>
-                            <form action="" method="post">
+                            <form action="{% url 'movie_rate' movie.id %}" method="post">
+
                                 <div class="star-rating">
+                                    {% csrf_token %}
                                     <input type="radio" id="10-stars" name="rating" value="10"/>
                                     <label for="10-stars" class="star">&#9733;</label>
                                     <input type="radio" id="9-stars" name="rating" value="9"/>
@@ -69,7 +71,7 @@
                                     <label for="8-stars" class="star">&#9733;</label>
                                     <input type="radio" id="7-stars" name="rating" value="7"/>
                                     <label for="7-stars" class="star">&#9733;</label>
-                                    <input type="radio" id="6-star" name="rating" value="6"/>
+                                    <input type="radio" id="6-stars" name="rating" value="6"/>
                                     <label for="6-stars" class="star">&#9733;</label>
                                     <input type="radio" id="5-stars" name="rating" value="5"/>
                                     <label for="5-stars" class="star">&#9733;</label>
@@ -81,6 +83,9 @@
                                     <label for="2-stars" class="star">&#9733;</label>
                                     <input type="radio" id="1-star" name="rating" value="1"/>
                                     <label for="1-star" class="star">&#9733;</label>
+                                    <button type="submit" class="btn yellowbtn" style="border: none;max-height: 40px;
+                                     background-color: #ffaf00"><label for="1-star" class="star" style="color: black">&#9733;</label>
+                                    </button>
                                 </div>
                             </form>
                         </div>
